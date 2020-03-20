@@ -9,16 +9,7 @@ import java.awt.event.KeyListener;
 
 public class Game extends Applet implements Runnable, KeyListener
 {
-	
-	private final Integer WIDTH = 500;
-	private final Integer HEIGHT = 500;
 	private final Long SLEEP_TIME = (long) 30;
-	
-	//directions
-	private final Integer UP = -1; 
-	private final Integer DOWN = 1; 
-	private final Integer LEFT = -1;
-	private final Integer RIGHT = 1; 
 	
 	//Background color for the applet
 	private final Color BACK_COLOR = Color.BLACK;
@@ -39,9 +30,9 @@ public class Game extends Applet implements Runnable, KeyListener
 	 */
 	public void init()
 	{
-		this.resize(WIDTH,HEIGHT);
+		this.resize(Constants.WIDTH,Constants.HEIGHT);
 		
-		img = createImage(WIDTH, HEIGHT);
+		img = createImage(Constants.WIDTH, Constants.HEIGHT);
 		gfx = img.getGraphics();
 		
 		this.addKeyListener(this);
@@ -64,7 +55,7 @@ public class Game extends Applet implements Runnable, KeyListener
 	public void paint(Graphics graph)
 	{
 		gfx.setColor(BACK_COLOR);
-		gfx.fillRect(0, 0, WIDTH, HEIGHT);
+		gfx.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
 		
 		//takes in the offscreen graphics
 		if(!gameOver)
@@ -74,7 +65,7 @@ public class Game extends Applet implements Runnable, KeyListener
 		else 
 		{
 			gfx.setColor(END_COLOR);
-			gfx.drawString("You Lose", WIDTH/2, HEIGHT/2);
+			gfx.drawString("You Lose", Constants.WIDTH/2, Constants.HEIGHT/2);
 		}
 		
 		//used to draw the offscreen graphics onto the screen, must be the last line as a result
@@ -94,11 +85,11 @@ public class Game extends Applet implements Runnable, KeyListener
 
 	public void checkGameOver()
 	{
-		if(snake.getHeadX() < 0 || snake.getHeadX() > (WIDTH - snake.getPointSize()))
+		if(snake.getHeadX() < 0 || snake.getHeadX() > (Constants.WIDTH - snake.getPointSize()))
 		{
 			gameOver = true;
 		}
-		if(snake.getHeadY() < 0 || snake.getHeadY() > (HEIGHT - snake.getPointSize()))
+		if(snake.getHeadY() < 0 || snake.getHeadY() > (Constants.HEIGHT - snake.getPointSize()))
 		{
 			gameOver = true;
 		}
@@ -141,10 +132,10 @@ public class Game extends Applet implements Runnable, KeyListener
 		
 		Integer code = event.getKeyCode();
 		
-		Boolean snakeUp = snake.getyDir() == UP;
-		Boolean snakeDown = snake.getyDir() == DOWN;
-		Boolean snakeLeft = snake.getxDir() == LEFT;
-		Boolean snakeRight = snake.getxDir() == RIGHT;
+		Boolean snakeUp = snake.getyDir() == Constants.UP;
+		Boolean snakeDown = snake.getyDir() == Constants.DOWN;
+		Boolean snakeLeft = snake.getxDir() == Constants.LEFT;
+		Boolean snakeRight = snake.getxDir() == Constants.RIGHT;
 		
 		//If snake is not moving (i.e. if we are at the very beginning of the game)
 		//Only start the game if the arrow key they hit is not left (because this would cause 
@@ -165,7 +156,7 @@ public class Game extends Applet implements Runnable, KeyListener
 		{
 			if(!snakeDown)
 			{
-				snake.setyDir(UP);
+				snake.setyDir(Constants.UP);
 				snake.setxDir(0);
 			}
 		}
@@ -173,7 +164,7 @@ public class Game extends Applet implements Runnable, KeyListener
 		{
 			if(!snakeUp) 
 			{ 
-				snake.setyDir(DOWN);
+				snake.setyDir(Constants.DOWN);
 				snake.setxDir(0);
 			}
 		}
@@ -181,7 +172,7 @@ public class Game extends Applet implements Runnable, KeyListener
 		{
 			if(!snakeRight)
 			{
-				snake.setxDir(LEFT);
+				snake.setxDir(Constants.LEFT);
 				snake.setyDir(0);
 			}
 		}
@@ -189,7 +180,7 @@ public class Game extends Applet implements Runnable, KeyListener
 		{
 			if(!snakeLeft) 
 			{ 
-				snake.setxDir(RIGHT);
+				snake.setxDir(Constants.RIGHT);
 				snake.setyDir(0);
 			}
 		}		
