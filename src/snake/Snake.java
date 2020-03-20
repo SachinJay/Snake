@@ -89,6 +89,26 @@ public class Snake
 			graph.fillRect(p.getX(), p.getY(), PT_SIZE, PT_SIZE);
 		}
 	}
+	
+	/**
+	 * Moves the snake
+	 */
+	public void move()
+	{
+		Point head = snakeList.get(0);
+		
+		Point newHead = new Point(head.getX() + (xDir * PT_SIZE), head.getY() + (yDir * PT_SIZE));
+		
+		//Use loop to update remaining points
+		//Starting from the back we wish to update the points so that they become the points in
+		//front of them
+		for(int i = snakeList.size()-1; i >= 1; i-- )
+		{
+			snakeList.set(i, snakeList.get(i-1));
+		}
+		
+		snakeList.set(0, newHead);
+	}
 
 	/**
 	 * @return the xDir
