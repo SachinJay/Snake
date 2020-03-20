@@ -84,7 +84,7 @@ public class Snake
 		graph.setColor(SNAKE_COLOR);
 		
 		//draws in each point of the snake to the desired size
-		for(Point p : this.snakeList)
+		for(Point p : snakeList)
 		{
 			graph.fillRect(p.getX(), p.getY(), PT_SIZE, PT_SIZE);
 		}
@@ -157,6 +157,6 @@ public class Snake
 	 */
 	public Integer getHeadY()
 	{
-		return snakeList.get(0).getX();
+		return snakeList.get(0).getY();
 	}
 }

@@ -14,6 +14,12 @@ public class Game extends Applet implements Runnable, KeyListener
 	private final Integer HEIGHT = 500;
 	private final Long SLEEP_TIME = (long) 50;
 	
+	//directions
+	private final Integer UP = -1; 
+	private final Integer DOWN = 1; 
+	private final Integer LEFT = -1;
+	private final Integer RIGHT = 1; 
+	
 	//Background color for the applet
 	private final Color BACK_COLOR = Color.BLACK;
 	
@@ -37,6 +43,7 @@ public class Game extends Applet implements Runnable, KeyListener
 		//instantiate the thread, takes in a runnable object, well the game itself is runnable
 		//so we pass in that
 		thread = new Thread(this);
+		thread.start();
 		
 		//initialize the snake according to parameters set in the snake class
 		snake = new Snake();
@@ -66,17 +73,20 @@ public class Game extends Applet implements Runnable, KeyListener
 	
 	public void repaint(Graphics graph)
 	{
-		
+		paint(graph);
 	}
 
 	@Override
 	public void run()
 	{
-		//run method is an infinte loop of drawing
+		//run method is an infinite loop of drawing
 		//Just like how movies work, a lot of still images played quickly 
-		while(true)
+		for(;;)
 		{
-			this.paint(g);
+			
+			snake.move();
+			
+			this.repaint();
 			try
 			{
 				Thread.sleep(SLEEP_TIME);
@@ -93,21 +103,45 @@ public class Game extends Applet implements Runnable, KeyListener
 	@Override
 	public void keyPressed(KeyEvent event)
 	{
+		Boolean snakeUp = snake.getyDir() == UP;
+		Boolean snakeDown = snake.getyDir() == DOWN;
+		Boolean snakeLeft = snake.getxDir() == LEFT;
+		Boolean snakeRight = snake.getxDir() == RIGHT;
+		
+		
 		if(event.getKeyCode() == KeyEvent.VK_UP)
 		{
-			
+			if(snake.getyDir() != DOWN)
+			{
+				snake.setyDir(UP);
+				snake.setxDir(0);
+			}
 		}
-		else if(event.getKeyCode() == KeyEvent.VK_DOWN)
+		 if(event.getKeyCode() == KeyEvent.VK_DOWN)
 		{
-			
+			if(snake.getyDir() != UP) 
+			{ 
+				snake.setyDir(DOWN);
+				snake.setxDir(0);
+			}
 		}
-		else if(event.getKeyCode() == KeyEvent.VK_DOWN)
+		 if(event.getKeyCode() == KeyEvent.VK_LEFT)
 		{
-			
+			if(snake.getxDir() != RIGHT)
+			{
+				snake.setxDir(LEFT);
+				snake.setyDir(0);
+				
+			}
 		}
-		else if(event.getKeyCode() == KeyEvent.VK_DOWN)
+		 if(event.getKeyCode() == KeyEvent.VK_RIGHT)
 		{
+			if(snake.getxDir() != LEFT) 
+			{ 
+				snake.setxDir(RIGHT);
+				snake.setyDir(0);
 			
+			}
 		}
 		
 		//No else branch included here becaues there are no other valid commands besides these
