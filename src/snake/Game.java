@@ -12,13 +12,16 @@ public class Game extends Applet implements Runnable, KeyListener
 	
 	private final Integer WIDTH = 500;
 	private final Integer HEIGHT = 500;
+	private final Long SLEEP_TIME = (long) 50;
 	
 	//Background color for the applet
 	private final Color BACK_COLOR = Color.BLACK;
 	
-	//Unsure why we do this
+	//The offscreen graphics
 	Graphics g; 
 	Image img;
+	Thread thread;
+	Snake snake; 
 	
 	@Override
 	/**
@@ -30,6 +33,13 @@ public class Game extends Applet implements Runnable, KeyListener
 		
 		img = createImage(WIDTH, HEIGHT);
 		g = img.getGraphics();
+		
+		//instantiate the thread, takes in a runnable object, well the game itself is runnable
+		//so we pass in that
+		thread = new Thread(this);
+		
+		//initialize the snake according to parameters set in the snake class
+		snake = new Snake();
 	}
 	
 	@Override
@@ -41,6 +51,10 @@ public class Game extends Applet implements Runnable, KeyListener
 		g.setColor(BACK_COLOR);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
+		//takes in the offscreen graphics
+		snake.draw(g);
+		
+		//used to draw the offscreen graphics onto the screen, must be the last line as a result
 		graph.drawImage(img, 0, 0, null);
 	}
 	
@@ -58,7 +72,21 @@ public class Game extends Applet implements Runnable, KeyListener
 	@Override
 	public void run()
 	{
-		// TODO Auto-generated method stub
+		//run method is an infinte loop of drawing
+		//Just like how movies work, a lot of still images played quickly 
+		while(true)
+		{
+			this.paint(g);
+			try
+			{
+				Thread.sleep(SLEEP_TIME);
+			} 
+			catch (InterruptedException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 	}
 
