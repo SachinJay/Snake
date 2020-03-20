@@ -111,25 +111,31 @@ public class Game extends Applet implements Runnable, KeyListener
 	public void keyPressed(KeyEvent event)
 	{
 		
-		
+		Integer code = event.getKeyCode();
 		
 		Boolean snakeUp = snake.getyDir() == UP;
 		Boolean snakeDown = snake.getyDir() == DOWN;
 		Boolean snakeLeft = snake.getxDir() == LEFT;
 		Boolean snakeRight = snake.getxDir() == RIGHT;
 		
+		//If snake is not moving (i.e. if we are at the very beginning of the game)
+		//Only start the game if the arrow key they hit is not left (because this would cause 
+		//self intersection)
 		if(!snake.getIsMoving())
 		{
-			if(event.getKeyCode() == KeyEvent.VK_UP || event.getKeyCode() == KeyEvent.VK_RIGHT || event.getKeyCode() == KeyEvent.VK_DOWN)
+			if(code == KeyEvent.VK_UP || code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_DOWN)
 			{
 				snake.setIsMoving(true);
 			}
 				
 		}
 		
-		if(event.getKeyCode() == KeyEvent.VK_UP)
+		//The following are cases for different key presses during the game
+		//Note that because the classic snake game does not allow diagonal movemet, 
+		//whenever you move in x direction, the y direction is set to 0, and vice versa
+		if(code == KeyEvent.VK_UP)
 		{
-			if(snake.getyDir() != DOWN)
+			if(!snakeDown)
 			{
 				snake.setyDir(UP);
 				snake.setxDir(0);
@@ -137,7 +143,7 @@ public class Game extends Applet implements Runnable, KeyListener
 		}
 		 if(event.getKeyCode() == KeyEvent.VK_DOWN)
 		{
-			if(snake.getyDir() != UP) 
+			if(!snakeUp) 
 			{ 
 				snake.setyDir(DOWN);
 				snake.setxDir(0);
@@ -145,25 +151,20 @@ public class Game extends Applet implements Runnable, KeyListener
 		}
 		 if(event.getKeyCode() == KeyEvent.VK_LEFT)
 		{
-			if(snake.getxDir() != RIGHT)
+			if(!snakeRight)
 			{
 				snake.setxDir(LEFT);
 				snake.setyDir(0);
-				
 			}
 		}
 		 if(event.getKeyCode() == KeyEvent.VK_RIGHT)
 		{
-			if(snake.getxDir() != LEFT) 
+			if(!snakeLeft) 
 			{ 
 				snake.setxDir(RIGHT);
 				snake.setyDir(0);
-			
 			}
-		}
-		
-		//No else branch included here becaues there are no other valid commands besides these
-		
+		}		
 	}
 
 	@Override
