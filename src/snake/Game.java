@@ -24,7 +24,7 @@ public class Game extends Applet implements Runnable, KeyListener
 	private final Color BACK_COLOR = Color.BLACK;
 	
 	//The offscreen graphics
-	Graphics g; 
+	Graphics gfx; 
 	Image img;
 	Thread thread;
 	Snake snake; 
@@ -38,15 +38,22 @@ public class Game extends Applet implements Runnable, KeyListener
 		this.resize(WIDTH,HEIGHT);
 		
 		img = createImage(WIDTH, HEIGHT);
-		g = img.getGraphics();
+		gfx = img.getGraphics();
+		
+		this.addKeyListener(this);
+		
+		
+		
+		//initialize the snake according to parameters set in the snake class
+		snake = new Snake();
 		
 		//instantiate the thread, takes in a runnable object, well the game itself is runnable
 		//so we pass in that
 		thread = new Thread(this);
 		thread.start();
 		
-		//initialize the snake according to parameters set in the snake class
-		snake = new Snake();
+		
+	
 	}
 	
 	@Override
@@ -55,11 +62,11 @@ public class Game extends Applet implements Runnable, KeyListener
 	 */
 	public void paint(Graphics graph)
 	{
-		g.setColor(BACK_COLOR);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		gfx.setColor(BACK_COLOR);
+		gfx.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		//takes in the offscreen graphics
-		snake.draw(g);
+		snake.draw(gfx);
 		
 		//used to draw the offscreen graphics onto the screen, must be the last line as a result
 		graph.drawImage(img, 0, 0, null);
@@ -103,11 +110,22 @@ public class Game extends Applet implements Runnable, KeyListener
 	@Override
 	public void keyPressed(KeyEvent event)
 	{
+		
+		
+		
 		Boolean snakeUp = snake.getyDir() == UP;
 		Boolean snakeDown = snake.getyDir() == DOWN;
 		Boolean snakeLeft = snake.getxDir() == LEFT;
 		Boolean snakeRight = snake.getxDir() == RIGHT;
 		
+		if(!snake.getIsMoving())
+		{
+			if(event.getKeyCode() == KeyEvent.VK_UP || event.getKeyCode() == KeyEvent.VK_RIGHT || event.getKeyCode() == KeyEvent.VK_DOWN)
+			{
+				snake.setIsMoving(true);
+			}
+				
+		}
 		
 		if(event.getKeyCode() == KeyEvent.VK_UP)
 		{

@@ -62,7 +62,7 @@ public class Snake
 		setxDir(0); 
 		setyDir(0); 
 		
-		isMoving = false; 
+		setIsMoving(false); 
 		isEating = false; 
 		
 		//Creates the head of the snake
@@ -95,19 +95,24 @@ public class Snake
 	 */
 	public void move()
 	{
-		Point head = snakeList.get(0);
 		
-		Point newHead = new Point(head.getX() + (xDir * PT_SIZE), head.getY() + (yDir * PT_SIZE));
-		
-		//Use loop to update remaining points
-		//Starting from the back we wish to update the points so that they become the points in
-		//front of them
-		for(int i = snakeList.size()-1; i >= 1; i-- )
+		if(isMoving)
 		{
-			snakeList.set(i, snakeList.get(i-1));
+			Point head = snakeList.get(0);
+			
+			Point newHead = new Point(head.getX() + (xDir * PT_SIZE), head.getY() + (yDir * PT_SIZE));
+			
+			//Use loop to update remaining points
+			//Starting from the back we wish to update the points so that they become the points in
+			//front of them
+			for(int i = snakeList.size()-1; i >= 1; i-- )
+			{
+				snakeList.set(i, snakeList.get(i-1));
+			}
+			
+			snakeList.set(0, newHead);
+
 		}
-		
-		snakeList.set(0, newHead);
 	}
 
 	/**
@@ -158,5 +163,21 @@ public class Snake
 	public Integer getHeadY()
 	{
 		return snakeList.get(0).getY();
+	}
+
+	/**
+	 * @return the isMoving
+	 */
+	public Boolean getIsMoving()
+	{
+		return isMoving;
+	}
+
+	/**
+	 * @param isMoving the isMoving to set
+	 */
+	public void setIsMoving(Boolean isMoving)
+	{
+		this.isMoving = isMoving;
 	}
 }
