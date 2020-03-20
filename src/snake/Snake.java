@@ -12,22 +12,7 @@ import java.util.ArrayList;
  * Uses an array list of points in order to represent the snake
  */
 public class Snake
-{
-	//Color of the snake
-	private final Color SNAKE_COLOR = Color.blue;
-	
-	//Size of each point in the snake
-	private final Integer PT_SIZE = 5;
-	
-	//The initial size (i.e. number of points that make up) of the snake
-	private final Integer SIZE = 25;
-	
-	//Start coordinates for the head of the snake
-	private final Integer START_X = 160;
-	private final Integer START_Y = 160;
-	
-	
-	
+{		
 	/**
 	 * Represents the snake
 	 */
@@ -66,12 +51,12 @@ public class Snake
 		isEating = false; 
 		
 		//Creates the head of the snake
-		snakeList.add(new Point(START_X,START_Y));
+		snakeList.add(new Point(Constants.START_X,Constants.START_Y));
 		
 		//Loop to fill out the rest of the snake going to the left (by convention)
-		for(int i =1; i < SIZE; i++)
+		for(int i =1; i < Constants.INIT_SNAKE_SIZE; i++)
 		{
-			snakeList.add(new Point(START_X - (i*PT_SIZE),START_Y));
+			snakeList.add(new Point(Constants.START_X - (i*Constants.PT_SIZE),Constants.START_Y));
 		}
 	}
 	
@@ -81,12 +66,12 @@ public class Snake
 	 */
 	public void draw(Graphics graph)
 	{
-		graph.setColor(SNAKE_COLOR);
+		graph.setColor(Constants.SNAKE_COLOR);
 		
 		//draws in each point of the snake to the desired size
 		for(Point p : snakeList)
 		{
-			graph.fillRect(p.getX(), p.getY(), PT_SIZE, PT_SIZE);
+			graph.fillRect(p.getX(), p.getY(), Constants.PT_SIZE, Constants.PT_SIZE);
 		}
 	}
 	
@@ -100,7 +85,7 @@ public class Snake
 		{
 			Point head = snakeList.get(0);
 			
-			Point newHead = new Point(head.getX() + (xDir * PT_SIZE), head.getY() + (yDir * PT_SIZE));
+			Point newHead = new Point(head.getX() + (xDir * Constants.PT_SIZE), head.getY() + (yDir * Constants.PT_SIZE));
 			
 			//Use loop to update remaining points
 			//Starting from the back we wish to update the points so that they become the points in
@@ -202,14 +187,5 @@ public class Snake
 	public void setIsMoving(Boolean isMoving)
 	{
 		this.isMoving = isMoving;
-	}
-	
-	/**
-	 * 
-	 * @return The size of each segment of the snake
-	 */
-	public Integer getPointSize()
-	{
-		return PT_SIZE;
 	}
 }

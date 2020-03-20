@@ -8,15 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Game extends Applet implements Runnable, KeyListener
-{
-	private final Long SLEEP_TIME = (long) 30;
-	
-	//Background color for the applet
-	private final Color BACK_COLOR = Color.BLACK;
-	
-	//Color for game over screen
-	private final Color END_COLOR = Color.RED;
-	
+{	
 	//The offscreen graphics
 	Graphics gfx; 
 	Image img;
@@ -54,7 +46,7 @@ public class Game extends Applet implements Runnable, KeyListener
 	 */
 	public void paint(Graphics graph)
 	{
-		gfx.setColor(BACK_COLOR);
+		gfx.setColor(Constants.BACKGROUND_COLOR);
 		gfx.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
 		
 		//takes in the offscreen graphics
@@ -64,7 +56,7 @@ public class Game extends Applet implements Runnable, KeyListener
 		}
 		else 
 		{
-			gfx.setColor(END_COLOR);
+			gfx.setColor(Constants.END_COLOR);
 			gfx.drawString("You Lose", Constants.WIDTH/2, Constants.HEIGHT/2);
 		}
 		
@@ -85,11 +77,11 @@ public class Game extends Applet implements Runnable, KeyListener
 
 	public void checkGameOver()
 	{
-		if(snake.getHeadX() < 0 || snake.getHeadX() > (Constants.WIDTH - snake.getPointSize()))
+		if(snake.getHeadX() < 0 || snake.getHeadX() > (Constants.WIDTH - Constants.PT_SIZE))
 		{
 			gameOver = true;
 		}
-		if(snake.getHeadY() < 0 || snake.getHeadY() > (Constants.HEIGHT - snake.getPointSize()))
+		if(snake.getHeadY() < 0 || snake.getHeadY() > (Constants.HEIGHT - Constants.PT_SIZE))
 		{
 			gameOver = true;
 		}
@@ -115,7 +107,7 @@ public class Game extends Applet implements Runnable, KeyListener
 			this.repaint();
 			try
 			{
-				Thread.sleep(SLEEP_TIME);
+				Thread.sleep(Constants.SLEEP_TIME);
 			} 
 			catch (InterruptedException e)
 			{
