@@ -12,7 +12,7 @@ public class Game extends Applet implements Runnable, KeyListener
 	
 	private final Integer WIDTH = 500;
 	private final Integer HEIGHT = 500;
-	private final Long SLEEP_TIME = (long) 50;
+	private final Long SLEEP_TIME = (long) 30;
 	
 	//directions
 	private final Integer UP = -1; 
@@ -23,11 +23,15 @@ public class Game extends Applet implements Runnable, KeyListener
 	//Background color for the applet
 	private final Color BACK_COLOR = Color.BLACK;
 	
+	//Color for game over screen
+	private final Color END_COLOR = Color.RED;
+	
 	//The offscreen graphics
 	Graphics gfx; 
 	Image img;
 	Thread thread;
 	Snake snake; 
+	Boolean gameOver;
 	
 	@Override
 	/**
@@ -42,17 +46,14 @@ public class Game extends Applet implements Runnable, KeyListener
 		
 		this.addKeyListener(this);
 		
-		
-		
 		//initialize the snake according to parameters set in the snake class
 		snake = new Snake();
+		gameOver = false; 
 		
 		//instantiate the thread, takes in a runnable object, well the game itself is runnable
 		//so we pass in that
 		thread = new Thread(this);
-		thread.start();
-		
-		
+		thread.start();		
 	
 	}
 	
@@ -66,7 +67,15 @@ public class Game extends Applet implements Runnable, KeyListener
 		gfx.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		//takes in the offscreen graphics
-		snake.draw(gfx);
+		if(!gameOver)
+		{
+			snake.draw(gfx);
+		}
+		else 
+		{
+			gfx.setColor(END_COLOR);
+			gfx.drawString("You Lose", WIDTH/2, HEIGHT/2);
+		}
 		
 		//used to draw the offscreen graphics onto the screen, must be the last line as a result
 		graph.drawImage(img, 0, 0, null);
@@ -83,16 +92,35 @@ public class Game extends Applet implements Runnable, KeyListener
 		paint(graph);
 	}
 
+	public void checkGameOver()
+	{
+		if(snake.getHeadX() < 0 || snake.getHeadX() > (WIDTH - snake.getPointSize()))
+		{
+			gameOver = true;
+		}
+		if(snake.getHeadY() < 0 || snake.getHeadY() > (HEIGHT - snake.getPointSize()))
+		{
+			gameOver = true;
+		}
+		if(snake.snakeHitSelf())
+		{
+			gameOver = true;
+		}
+	}
+	
 	@Override
 	public void run()
 	{
 		//run method is an infinite loop of drawing
 		//Just like how movies work, a lot of still images played quickly 
-		for(;;)
+		while(true)
 		{
 			
-			snake.move();
-			
+			if(!gameOver)
+			{
+				snake.move();
+				this.checkGameOver();
+			}
 			this.repaint();
 			try
 			{

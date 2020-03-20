@@ -114,6 +114,29 @@ public class Snake
 
 		}
 	}
+	
+	/**
+	 * 
+	 * @return true if the snake self intersected
+	 */
+	public Boolean snakeHitSelf()
+	{
+		//In order to check for intersection, just need to check if the head has the same point as
+		//any other element in the array list
+		
+		int headX = snakeList.get(0).getX(); 
+		int headY = snakeList.get(0).getY();
+		
+		for(int i = 1; i < snakeList.size(); i++)
+		{
+			if(snakeList.get(i).getX() == headX && snakeList.get(i).getY() == headY)
+			{
+				return true;
+			}
+		}
+		
+		return false; 
+	}
 
 	/**
 	 * @return the xDir
@@ -179,5 +202,14 @@ public class Snake
 	public void setIsMoving(Boolean isMoving)
 	{
 		this.isMoving = isMoving;
+	}
+	
+	/**
+	 * 
+	 * @return The size of each segment of the snake
+	 */
+	public Integer getPointSize()
+	{
+		return PT_SIZE;
 	}
 }
