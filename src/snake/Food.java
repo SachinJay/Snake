@@ -23,7 +23,6 @@ public class Food
 	 */
 	public void randomize()
 	{
-		//TODO randomize the color too
 		x = (int)(Math.random() * (Constants.WIDTH - Constants.FOOD_SIZE + 1) );
 		y = (int)(Math.random() * (Constants.HEIGHT - Constants.FOOD_SIZE + 1) );
 	}
@@ -63,12 +62,9 @@ public class Food
 	
 	public void draw(Graphics g)
 	{
-		//TODO: I want to make this a random color, do this later after everything is working
-		g.setColor(Color.green);
+		int col = (int)(Math.random() * Constants.NUM_FOOD_COLORS);
+		g.setColor(Constants.FOOD_COLORS[col]);
 		
-		//TODO I want to make this a circle later
-		//I think that might affec the logic for snake getting it but the other half of me says
-		//Nah it'll be fine because the snake can't attack diagonally
-		g.fillRect(x, y, Constants.FOOD_SIZE, Constants.FOOD_SIZE);
+		g.fillOval(x, y, Constants.FOOD_SIZE, Constants.FOOD_SIZE);
 	}
 }

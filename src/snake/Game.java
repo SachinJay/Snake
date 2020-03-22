@@ -60,7 +60,9 @@ public class Game extends Applet implements Runnable, KeyListener
 		else 
 		{
 			gfx.setColor(Constants.END_COLOR);
-			gfx.drawString("You Lose\n Score: "+food.getScore(), Constants.WIDTH/2, Constants.HEIGHT/2);
+			gfx.drawString("You Lose", Constants.WIDTH/2, Constants.HEIGHT/2);
+			gfx.drawString("Score: " + food.getScore(),
+					Constants.WIDTH/2, Constants.HEIGHT/2 + Constants.MARGIN );
 		}
 		
 		//used to draw the offscreen graphics onto the screen, must be the last line as a result
@@ -184,14 +186,12 @@ public class Game extends Applet implements Runnable, KeyListener
 	@Override
 	public void keyReleased(KeyEvent arg0)
 	{
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0)
 	{
-		// TODO Auto-generated method stub
 		
 	}
 }
