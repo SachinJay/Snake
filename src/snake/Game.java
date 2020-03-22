@@ -1,8 +1,6 @@
 package snake;
 
 import java.applet.Applet;
-import java.awt.Button;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -10,6 +8,10 @@ import java.awt.event.KeyListener;
 
 public class Game extends Applet implements Runnable, KeyListener
 {	
+	/**
+	 * Default serial
+	 */
+	private static final long serialVersionUID = 1L;
 	//The offscreen graphics
 	Graphics gfx; 
 	Image img;
