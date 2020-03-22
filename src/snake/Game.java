@@ -1,6 +1,7 @@
 package snake;
 
 import java.applet.Applet;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -38,8 +39,8 @@ public class Game extends Applet implements Runnable, KeyListener
 		//instantiate the thread, takes in a runnable object, well the game itself is runnable
 		//so we pass in that
 		thread = new Thread(this);
-		thread.start();		
-	
+		thread.start();	
+		
 	}
 	
 	@Override

@@ -42,10 +42,12 @@ public class Snake
 	
 	public Snake()
 	{
+		//Snake is an arraylist of points, it has no direction
 		snakeList = new ArrayList<Point>();
 		setxDir(0); 
 		setyDir(0); 
 		
+		//snake is initially stationary and not eating food
 		setIsMoving(false); 
 		setIsEating(false); 
 		
@@ -97,6 +99,7 @@ public class Snake
 			
 			snakeList.set(0, newHead);
 			
+			//If the snake just ate food, increase it's length simply by not getting rid of the tail
 			if(isEating)
 			{
 				snakeList.add(tail);

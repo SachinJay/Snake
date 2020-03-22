@@ -5,12 +5,19 @@ import java.awt.Graphics;
 
 public class Food
 {
+	/**coordinates of center of food	 */
 	private Integer x;
 	private Integer y; 
+	
+	/**Number of food objects eaten by snake so far */
 	private int score;
 		
 	private Snake snake; 
 	
+	/**
+	 * 
+	 * @param s the snake that will eat the food
+	 */
 	public Food(Snake s)
 	{
 		x = (int)(Math.random() * (Constants.WIDTH - Constants.FOOD_SIZE + 1) );
@@ -19,7 +26,7 @@ public class Food
 	}
 	
 	/**
-	 * Places the food in a new place, further modification to give it new color
+	 * Places the food in a new place
 	 */
 	public void randomize()
 	{
@@ -62,6 +69,7 @@ public class Food
 	
 	public void draw(Graphics g)
 	{
+		//Gets a random color from the color array 
 		int col = (int)(Math.random() * Constants.NUM_FOOD_COLORS);
 		g.setColor(Constants.FOOD_COLORS[col]);
 		
