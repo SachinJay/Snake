@@ -9,7 +9,10 @@ public class Constants
 	public static final Integer HEIGHT = 500;
 	
 	//Number of squares that make up the snake when the game starts
-	public static final Integer INIT_SNAKE_SIZE = 35;
+	public static final Integer INIT_SNAKE_SIZE = 25;
+	
+	//Size of square food
+	public static final Integer FOOD_SIZE = 6;
 	
 	//Start coordinates of the snake's head
 	public static final Integer START_X = 160;
@@ -30,5 +33,5 @@ public class Constants
 	public static final Color END_COLOR = Color.RED;
 	
 	//Time between frames of the image (in milliseconds)
-	public static final Long SLEEP_TIME = (long) 30;	
+	public static final Long SLEEP_TIME = (long) 50;	
 }

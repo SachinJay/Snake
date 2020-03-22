@@ -1,7 +1,6 @@
 package snake;
 
 import java.util.List;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -48,7 +47,7 @@ public class Snake
 		setyDir(0); 
 		
 		setIsMoving(false); 
-		isEating = false; 
+		setIsEating(false); 
 		
 		//Creates the head of the snake
 		snakeList.add(new Point(Constants.START_X,Constants.START_Y));
@@ -84,6 +83,7 @@ public class Snake
 		if(isMoving)
 		{
 			Point head = snakeList.get(0);
+			Point tail = snakeList.get(snakeList.size()-1);
 			
 			Point newHead = new Point(head.getX() + (xDir * Constants.PT_SIZE), head.getY() + (yDir * Constants.PT_SIZE));
 			
@@ -96,6 +96,12 @@ public class Snake
 			}
 			
 			snakeList.set(0, newHead);
+			
+			if(isEating)
+			{
+				snakeList.add(tail);
+				this.setIsEating(false);
+			}
 
 		}
 	}
@@ -187,5 +193,21 @@ public class Snake
 	public void setIsMoving(Boolean isMoving)
 	{
 		this.isMoving = isMoving;
+	}
+
+	/**
+	 * @return the isEating
+	 */
+	public Boolean getIsEating()
+	{
+		return isEating;
+	}
+
+	/**
+	 * @param isEating true if snake is eating food
+	 */
+	public void setIsEating(Boolean isEating)
+	{
+		this.isEating = isEating;
 	}
 }

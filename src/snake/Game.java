@@ -15,6 +15,7 @@ public class Game extends Applet implements Runnable, KeyListener
 	Thread thread;
 	Snake snake; 
 	Boolean gameOver;
+	Food food; 
 	
 	@Override
 	/**
@@ -31,6 +32,7 @@ public class Game extends Applet implements Runnable, KeyListener
 		
 		//initialize the snake according to parameters set in the snake class
 		snake = new Snake();
+		food = new Food(snake);
 		gameOver = false; 
 		
 		//instantiate the thread, takes in a runnable object, well the game itself is runnable
@@ -53,11 +55,12 @@ public class Game extends Applet implements Runnable, KeyListener
 		if(!gameOver)
 		{
 			snake.draw(gfx);
+			food.draw(gfx);
 		}
 		else 
 		{
 			gfx.setColor(Constants.END_COLOR);
-			gfx.drawString("You Lose", Constants.WIDTH/2, Constants.HEIGHT/2);
+			gfx.drawString("You Lose\n Score: "+food.getScore(), Constants.WIDTH/2, Constants.HEIGHT/2);
 		}
 		
 		//used to draw the offscreen graphics onto the screen, must be the last line as a result
@@ -103,6 +106,7 @@ public class Game extends Applet implements Runnable, KeyListener
 			{
 				snake.move();
 				this.checkGameOver();
+				food.hasBeenEaten();
 			}
 			this.repaint();
 			try
@@ -111,7 +115,6 @@ public class Game extends Applet implements Runnable, KeyListener
 			} 
 			catch (InterruptedException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
